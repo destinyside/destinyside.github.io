@@ -1,1 +1,8 @@
-I want build a blog from zero
+I want to build a blog from zero
+
+use frameworks:
+
+bootstrap
+jquery
+
+
