@@ -1,25 +1,99 @@
 <!DOCTYPE html>
 <html>
-    <head>
+  <head>
 	<title>Destiny Side</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="bootstrap-3.3.7/css/bootstrap.min.css">
 	<script src="jquery-3.1.1/jquery.min.js"></script>
 	<script src="bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    </head>
-    <body>
+  </head>
+  <body>
+	<canvas id="canvas" width="200" height="200"></canvas>  
+	<script>  
+var canvas = document.getElementById('canvas');  
+if (canvas.getContext) {  
+  var ctx = canvas.getContext('2d');  
+  ctx.lineWidth = 8;  
+  ctx.shadowOffsetX = 3;  
+  ctx.shadowOffsetY = 3;  
+  ctx.shadowBlur = 2;  
+  ctx.font = '16px monospace';  
+  var startAngle = -Math.PI / 2;  
+
+  function drawClock() {  
+	var time = new Date();  
+	var hours = time.getHours();  
+	var am = true;  
+	if (hours >= 12) {  
+	  hours -= 12;  
+	  am = false;  
+	}  
+	var minutes = time.getMinutes();  
+	var seconds = time.getSeconds();  
+
+	ctx.clearRect(0, 0, 200, 200);  
+
+	ctx.beginPath();  
+	ctx.strokeStyle = "rgb(255, 0, 0)";  
+	ctx.shadowColor = "rgba(255, 128, 128, 0.5)";  
+	ctx.arc(100, 100, 90, startAngle, (hours / 6 + minutes / 360 + seconds / 21600 - 0.5) * Math.PI, false);  
+	ctx.stroke();  
+
+	ctx.beginPath();  
+	ctx.strokeStyle = "rgb(0, 255, 0)";  
+	ctx.shadowColor = "rgba(128, 255, 128, 0.5)";  
+	ctx.arc(100, 100, 75,startAngle, (minutes / 30 + seconds / 1800 - 0.5) * Math.PI, false);  
+	ctx.stroke();  
+
+	ctx.beginPath();  
+	ctx.strokeStyle = "rgb(0, 0, 255)";  
+	ctx.shadowColor = "rgba(128, 128, 255, 0.5)";  
+	ctx.arc(100, 100, 60,startAngle, (seconds / 30 - 0.5) * Math.PI, false);  
+	ctx.stroke();  
+
+	time = [];  
+	if (hours < 10) {  
+	  time.push('0');  
+	}  
+	time.push(hours);  
+	time.push(':');  
+
+	if (minutes < 10) {  
+	  time.push('0');  
+	}  
+	time.push(minutes);  
+	time.push(':');  
+
+	if (seconds < 10) {  
+	  time.push('0');  
+	}  
+	time.push(seconds);  
+
+	if (am) {  
+	  time.push('AM');  
+	} else {  
+	  time.push('PM');  
+	}  
+
+	ctx.fillText(time.join(''), 50, 105);  
+  }  
+
+  drawClock();  
+  setInterval(drawClock, 1000);  
+}  
+	</script>  
 	<div class="col-lg-12">
-	    <ul class="breadcrumb">
+	  <ul class="breadcrumb">
 		<li class="active">I'm here</li>
 		<li></li>
 		<li></li>
 		<li></li>
 		<li></li>
-	    </ul>
+	  </ul>
 	</div>
 	<div class="col-lg-12">
-	    <p class="text-center">Test of Github Pages,Test of basic style</p>
+	  <p class="text-center">Test of Github Pages,Test of basic style</p>
 	</div>
-    </body>
+  </body>
 </html>
