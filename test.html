@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="bootstrap-3.3.7/css/bootstrap.min.css">
 	<script src="jquery-3.1.1/jquery.min.js"></script>
 	<script src="bootstrap-3.3.7/js/bootstrap.min.js"></script>
+	<script src="biwascheme-0.6.7.js"></script>
   </head>
   <body>
 	<div class="col-lg-12">
@@ -17,8 +18,20 @@
 	  </ul>
 	</div>
 	<div class="col-lg-12">
-	  <p class="text-center">A test page</p>
-	  <p class="text-center">Just a test</p>
+	  <script>
+function eval(){
+  $("#bs-console").empty();
+  var intp = new BiwaScheme.Interpreter(function(e){Console.puts(e);});
+  var src = $("#pro").val();
+  intp.evaluate(src, function(result){Console.puts(result);});
+
+}
+	  </script>
+	  <div class="col-lg-12">
+		<textarea id="pro" class="col-lg-12 text"rows="10" style="resize:none"></textarea>
+		<div class="col-lg-4" id="bs-console"></div>
+		<button class="btn btn-default" value="Eval" onclick="eval();" />
+	  </div>
 	</div>
   </body>
 </html>
