@@ -22,7 +22,7 @@ particlesJS("particles-js", {
         "nb_sides": 5
       },
       "image": {
-        "src": "img/hj3.jpg",
+        "src": "img/hj4.png",
         "width": 30,
         "height": 30
       }
