@@ -22,7 +22,7 @@
 				<UserInfo></UserInfo>
 			</el-main>-->
 			<el-main v-show="activeIndex=='funny'">
-				<Funny></Funny>
+				<Funny v-if="activeIndex=='funny'" img="/src/assets/funny.png"></Funny>
 			</el-main>
 			<el-main v-show="activeIndex=='biwaScheme'">
 				<BiwaScheme></BiwaScheme>
