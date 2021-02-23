@@ -76,7 +76,7 @@ let sort = (item) => {
 	if(item.sub){
 		let arr = [];
 		for(var key in item){
-			console.log(key, item[key]);
+			//console.log(key, item[key]);
 			if('config_sub_key'.indexOf(key) == -1){
 				item[key].key = key;
 				sort(item[key]);
