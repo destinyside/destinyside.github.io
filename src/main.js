@@ -3,6 +3,10 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import App from './App.vue'
 
+import components from './modules/global.js'
+
+Vue.prototype.components = components;
+
 Vue.use(ElementUI)
 
 new Vue({

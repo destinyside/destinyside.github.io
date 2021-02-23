@@ -3,37 +3,38 @@
 		<el-container>
 			<el-header>
 				<el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-					<template v-for="item,index in menus">
-						<el-menu-item :key="item.index" :index="item.key" :disabled="item.disabled">
+					<template v-for="item,index in menus.items">
+						<el-submenu v-if="item.sub" v-show="!item.config.show && item.config.show != false" :index="item.key" :disabled="item.disabled">
+						    <template slot="title">{{item.config.label}}</template>
+						    <template v-for="subItem,subIndex in item.items" :index="subItem.key" v-if="'sub_config_key'.indexOf(subItem.key) == -1">
+								<el-submenu v-if="subItem.sub" :index="subItem.key">
+								    <template slot="title">{{subItem.config.label}}</template>
+								    <template v-for="childItem,childIndex in subItem.items" :index="childItem.key" v-if="'sub_config_key'.indexOf(subItem.key) == -1">
+										<el-menu-item :key="childItem.key" :index="childItem.key" :disabled="childItem.disabled">
+											<el-icon v-if="childItem.icon" :name="childItem.icon"></el-icon>
+											{{childItem.label}}
+										</el-menu-item>
+									</template>
+								</el-submenu>
+								<el-menu-item v-if="!subItem.sub"  :key="subItem.key" :index="subItem.key" :disabled="subItem.disabled">
+									<el-icon v-if="subItem.icon" :name="subItem.icon"></el-icon>
+									{{subItem.label}}
+								</el-menu-item>
+							</template>
+						</el-submenu>
+						<el-menu-item v-if="!item.sub" v-show="!item.show && item.show != false" :key="item.key" :index="item.key" :disabled="item.disabled">
 							<el-icon v-if="item.icon" :name="item.icon"></el-icon>
 							{{item.label}}
 						</el-menu-item>
 					</template>
 				</el-menu>
 			</el-header>
-			<el-main v-show="activeIndex=='basic'" >
-				<!--<img src="./assets/logo.png">-->
-				<Clock></Clock>
-				<div>
-					<el-button @click="startHacking">Start</el-button>
-				</div>
-			</el-main>
-			<!--<el-main v-show="activeIndex=='userInfo'">
-				<UserInfo></UserInfo>
-			</el-main>-->
-			<el-main v-show="activeIndex=='funny'">
-				<Funny v-if="activeIndex=='funny'" img="/src/assets/funny.png"></Funny>
-			</el-main>
-			<el-main v-show="activeIndex=='biwaScheme'">
-				<BiwaScheme></BiwaScheme>
+			<el-main>
+				<component :is="currentView"></component>
 			</el-main>
 			<el-footer>
-				<el-drawer
-				  title="我是标题"
-				  :visible.sync="showDrawer"
-				  :direction="'ltr'"
-				  :before-close="handleClose">
-				  <span>我来啦!</span>
+				<el-drawer title="我是标题" :visible.sync="showDrawer" :direction="'ltr'" :before-close="handleClose">
+					<span>我来啦!</span>
 				</el-drawer>
 			</el-footer>
 		</el-container>
@@ -41,78 +42,54 @@
 </template>
 
 <script>
-	import UserInfo from './root/user/info/info.vue';
-	import Clock from './root/clock/clock.vue';
-	import Funny from './root/funny/funny.vue';
-	import BiwaScheme from './root/biwa/biwa.vue';
+	var componentMap = {};
 	export default {
-		components:{
-				UserInfo:UserInfo,
-				Clock:Clock,
-				Funny:Funny,
-				BiwaScheme:BiwaScheme
+		components: {
+
 		},
 		data() {
 			return {
-				menus:[
-					{
-						label:'',
-						key:'drawer',
-						icon:'menu'
-					},{
-						label:'Basic',
-						key:'basic',
-						icon:''
-					},{
-						label:'Funny',
-						key:'funny',
-						icon:''
-					},{
-						label:'BiwaScheme',
-						key:'biwaScheme',
-						icon:''
-					},{
-						label:'User',
-						key:'userInfo',
-						icon:''
-					},{
-						label:'messages',
-						key:'messages',
-						icon:'',
-						disabled:true
-					}
-				],
-				activeIndex: 'basic',
-				showDrawer:false
-			};
+				menus: this.components,
+				activeIndex: 'clock',
+				showDrawer: false,
+				currentView: ''
+			}
+		},
+		mounted() {
+			this.setCurrentView();
 		},
 		methods: {
-			handleClose(done){
+			handleClose(done) {
 				done();
 			},
 			handleSelect(key, keyPath) {
 				console.log(key, keyPath);
-				if(key=='drawer'){
+				if (key == 'drawer') {
 					this.$set(this.$data, 'showDrawer', true);
 				} else {
 					this.$set(this.$data, 'activeIndex', key);
+					this.setCurrentView();
 				}
 			},
-			startHacking() {
-				this.$notify({
-					title: 'It works!',
-					type: 'success',
-					message: 'We\'ve laid the ground work for you. It\'s time for you to build something epic!',
-					duration: 5000
-				})
+			setCurrentView() {
+				var activeIndex = this.activeIndex;
+				if (!componentMap[activeIndex]) {
+					let item = import(`./modules/${activeIndex}.vue`);
+					//console.log(item);
+					item.then(res => {
+						// {default: {…}, __esModule: true}
+						componentMap[activeIndex] = res.default;
+						this.$set(this.$data, 'currentView', componentMap[activeIndex]);
+					});
+				} else {
+					this.$set(this.$data, 'currentView', componentMap[activeIndex]);
+				}
 			}
 		}
 	}
 </script>
 
 <style>
-	#app {
-		font-family: Helvetica, sans-serif;
-		text-align: center;
-	}
+	@import url("./assets/css/main.css");
 </style>
+
