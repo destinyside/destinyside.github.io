@@ -1,9 +1,12 @@
 <template>
 	<el-row>
 		<el-col :span="24">
-			<canvas canvas-id="clockCanvas" id="clockCanvas" width="200" height="200"></canvas>
+			<div class="glass-container" :style="style">
+				<div class="glass-background" :style="style">
+					<canvas canvas-id="clockCanvas" id="clockCanvas" :style="clockStyle" width="200" height="200"></canvas>
+				</div>
+			</div>
 		</el-col>
-		
 	</el-row>
 </template>
 
@@ -11,13 +14,25 @@
 	export default {
 		config:{
 				index:1,
-				label:'Clock'
+				label:'Home'
 		},
 		data() {
 			return {}
 		},
 		mounted() {
 			this.drawClock("clockCanvas");
+		},
+		computed: {
+			style() {
+				let height = window.innerHeight - 100;
+				let style = `height:${height}px;`;
+				return style;
+			},
+			clockStyle(){
+				let height = (window.innerHeight - 100 - 200) / 2;
+				let style = `margin-top:${height}px;`;
+				return style;
+			}
 		},
 		methods: {
 			drawClock(elemId) {

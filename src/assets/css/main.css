@@ -5,3 +5,70 @@
   text-align: center;
 }
 
+body {
+		background-image: url(../bg.jpg);
+		/*background-image: linear-gradient(to right , #7A88FF, #7AFFAF);*/
+		background-position: center center;
+		background-size: cover;
+		background-attachment: fixed;
+	}
+	
+	.glass-background {
+		background: transparent;
+		border-radius: 8px;
+		/* box-shadow: 0 10px 20px rgba(0,0,0,0.5); */
+		box-shadow: #D3D3D3 2px 2px 8px 2px;
+		z-index: 1;
+		box-sizing: border-box;
+	}
+	
+	.glass-background::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		-webkit-filter: blur(10px);
+		-moz-filter: blur(10px);
+		-ms-filter: blur(10px);
+		-o-filter: blur(10px);
+		filter: blur(10px);
+		-webkit-backdrop-filter: blur(20px);  
+		backdrop-filter: blur(20px);
+		z-index: -1;
+		margin: -3px;
+		/*
+			background-image:url(./mountain-outline.jpg);
+			background-position: center center;
+			background-size: cover;
+			background-attachment: fixed; 
+		*/
+	}
+	
+	.glass-background::hover,.glass-background::active {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		-webkit-filter: blur(10px);
+		-moz-filter: blur(10px);
+		-ms-filter: blur(10px);
+		-o-filter: blur(10px);
+		filter: blur(10px);
+		-webkit-backdrop-filter: blur(20px);  
+		backdrop-filter: blur(20px);
+		z-index: -1;
+		margin: -3px;
+		/*
+			background-image:url(./mountain-outline.jpg);
+			background-position: center center;
+			background-size: cover;
+			background-attachment: fixed; 
+		*/
+	}
+	
+	
+

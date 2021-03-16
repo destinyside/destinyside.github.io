@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<el-container>
-			<el-header>
+			<el-header >
 				<el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
 					<template v-for="item,index in menus.items">
 						<el-submenu v-if="item.sub" v-show="!item.config.show && item.config.show != false" :index="item.key" :disabled="item.disabled">
@@ -50,7 +50,7 @@
 		data() {
 			return {
 				menus: this.components,
-				activeIndex: 'clock',
+				activeIndex: 'home',
 				showDrawer: false,
 				currentView: ''
 			}
