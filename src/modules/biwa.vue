@@ -2,12 +2,12 @@
 	<el-row>
 		<el-col :span="12">
 			<el-button @click="evalData">Eval</el-button>
-			<el-input type="textarea" class="input" v-model="data"></el-input>
+			<el-input type="textarea" class="input" v-model="data" :style="style"></el-input>
 			
 		</el-col>
 		<el-col :span="12">
 			<el-button @click="clearData">Clear</el-button>
-			<el-input type="textarea" class="output" v-model="result" :readonly="true"></el-input>
+			<el-input type="textarea" class="output" v-model="result" :style="style" :readonly="true"></el-input>
 		</el-col>
 	</el-row>
 </template>
@@ -23,6 +23,13 @@
 			return {
 				data:'',
 				result:''
+			}
+		},
+		computed: {
+			style() {
+				let height = window.innerHeight - 220;
+				let style = `height:${height}px;`;
+				return style;
 			}
 		},
 		methods: {
@@ -44,7 +51,6 @@
 
 <style>
 	.input,.output{
-		height:80vh;
 		width:100%;
 		resize:none;
 	}

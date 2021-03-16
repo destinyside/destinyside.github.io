@@ -1,7 +1,7 @@
 <template>
 	<el-row>
 		<el-col :span="24">
-			 <div id="particles-js"></div>
+			 <div id="particles-js" class="glass-background" :style="style"></div>
 		</el-col>
 	</el-row>
 </template>
@@ -22,6 +22,13 @@
 			//config.particles.shape.image.src = this.$props.img;
 			this.init("particles-js");
 		},
+		computed: {
+			style() {
+				let height = window.innerHeight - 180;
+				let style = `height:${height}px;`;
+				return style;
+			}
+		},
 		methods: {
 			init(elemId) {
 				window.particlesJS(elemId, config);
@@ -33,7 +40,6 @@
 
 <style>
 	#particles-js {
-		width: 100vw;
-		height: 100vh;
+		width: 100%;
 	}
 </style>

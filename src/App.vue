@@ -33,8 +33,11 @@
 				<component :is="currentView"></component>
 			</el-main>
 			<el-footer>
-				<el-drawer title="我是标题" :visible.sync="showDrawer" :direction="'ltr'" :before-close="handleClose">
-					<span>我来啦!</span>
+				<el-row class="footer">
+					<el-col :span="24">&Sigma; bg is from kde plasma</el-col>
+				</el-row>
+				<el-drawer title="title" :visible.sync="showDrawer" :direction="'ltr'" :before-close="handleClose">
+					<span>here!</span>
 				</el-drawer>
 			</el-footer>
 		</el-container>

@@ -24,12 +24,12 @@
 		},
 		computed: {
 			style() {
-				let height = window.innerHeight - 100;
+				let height = window.innerHeight - 180;
 				let style = `height:${height}px;`;
 				return style;
 			},
 			clockStyle(){
-				let height = (window.innerHeight - 100 - 200) / 2;
+				let height = (window.innerHeight - 180 - 200) / 2;
 				let style = `margin-top:${height}px;`;
 				return style;
 			}
